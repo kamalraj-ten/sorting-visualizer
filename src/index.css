@@ -57,6 +57,9 @@ button {
   max-width: 150px;
   min-width: 60px;
 }
+button:hover {
+  background-color: #000;
+}
 .main-container {
   display: flex;
   flex-direction: column;
@@ -77,11 +80,14 @@ select:focus {
 .entry-container {
   display: flex;
   flex-direction: row;
+  justify-content: space-evenly;
+  flex-wrap: wrap;
+  align-items: baseline;
 }
 .counter {
   background-color: blueviolet;
   color: #fff;
-  padding: 10px;
+  padding: 8px;
   border-radius: 10px;
 }
 .text-input {
@@ -96,4 +102,8 @@ select:focus {
   font-size: 40px;
   text-decoration: underline 4px solid grey;
   margin: 0px auto 20px auto;
+}
+.graph-container {
+  width: 90%;
+  max-height: 400px;
 }

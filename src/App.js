@@ -3,6 +3,8 @@ import Text from "./components/Text";
 import React, { Component } from "react";
 import Button from "./components/Button";
 import Selector from "./components/Selector";
+import BubbleSort from "./sorting_algorithms/BubbleSort";
+import Graph from "./components/Graph";
 
 class App extends Component {
   state = {
@@ -72,17 +74,22 @@ class App extends Component {
             class="ml-20 counter"
             text={"count : " + this.state.entryCount}
           />
+          <Selector
+            class="mt-20"
+            value={this.state.algorithm}
+            options={this.sortingAlgorithms}
+            onChangeHandler={this.handleSelectionChange}
+          />
+          <Button
+            text="sort"
+            class="ml-10 mt-20"
+            onClickHandler={this.handleBtnSortClick}
+          />
         </div>
-        <Selector
-          class="mt-20"
-          value={this.state.algorithm}
-          options={this.sortingAlgorithms}
-          onChangeHandler={this.handleSelectionChange}
-        />
-        <Button
-          text="sort"
-          class="ml-10 mt-20"
-          onClickHandler={this.handleBtnSortClick}
+        <Graph
+          entries={this.state.entries}
+          entryCount={this.state.entryCount}
+          algorithm={this.state.algorithm}
         />
       </div>
     );

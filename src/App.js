@@ -5,6 +5,7 @@ import Button from "./components/Button";
 import Selector from "./components/Selector";
 import BubbleSort from "./sorting_algorithms/BubbleSort";
 import Graph from "./components/Graph";
+import SelectionSort from "./sorting_algorithms/SelectionSort";
 
 class App extends Component {
   state = {
@@ -26,7 +27,7 @@ class App extends Component {
 
   sortingAlgorithms = ["bubble sort", "selection sort", "insertion sort"];
 
-  algoMap = { "bubble sort": BubbleSort };
+  algoMap = { "bubble sort": BubbleSort, "selection sort": SelectionSort };
 
   HandleInputChange = (input) => {
     this.setState({ input });
@@ -87,9 +88,9 @@ class App extends Component {
     this.sort();
   };
 
-  handleSelectionChange = (index) => {
+  handleSelectionChange = (e) => {
     this.setState({
-      algorithm: this.sortingAlgorithms[index],
+      algorithm: this.sortingAlgorithms[e.target.options.selectedIndex],
     });
   };
 
@@ -165,6 +166,7 @@ class App extends Component {
 
   sort = () => {
     const algoFunction = this.algoMap[this.state.algorithm];
+    console.log(this.state.algorithm);
     const queue = algoFunction(
       this.state.entryCount,
       this.state.entries,

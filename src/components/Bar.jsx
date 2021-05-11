@@ -5,6 +5,7 @@ const Bar = (props) => {
     height: props.height,
     width: props.width,
     backgroundColor: props.color,
+    borderRadius: "4px",
   };
   return <div style={styles}></div>;
 };

@@ -41,7 +41,9 @@ code {
 .mb-20 {
   margin-bottom: 20px;
 }
-
+.mb-40 {
+  margin-bottom: 40px;
+}
 .validator {
   color: red;
   font-size: smaller;
@@ -110,4 +112,24 @@ select:focus {
   flex-direction: row;
   justify-content: space-evenly;
   align-items: flex-end;
+}
+.bottom {
+  margin-top: auto;
+  height: 400px;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  flex-direction: column;
+}
+.explainer {
+  background-color: blueviolet;
+  color: white;
+  padding: 5px;
+  border-radius: 4px;
+}
+.graph {
+  display: flex;
+  justify-content: space-evenly;
+  flex-direction: column;
+  padding: 10px;
 }

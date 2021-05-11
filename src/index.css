@@ -106,4 +106,8 @@ select:focus {
 .graph-container {
   width: 90%;
   max-height: 400px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+  align-items: flex-end;
 }

@@ -59,6 +59,7 @@ class App extends Component {
     return (finalDigit + 1) * 10 ** (digits - 1);
   };
 
+  // parses the input and sets the entries
   parseInput = (input) => {
     const splitted = input
       .split(",")
@@ -69,13 +70,20 @@ class App extends Component {
       if (!splitted[i]) isValid = false;
     }
     if (isValid && splitted.length < 11) {
-      this.setState({
-        inputValidityText: "",
-        entries: splitted,
-        entryCount: splitted.length,
-        verticalUnits: this.getVerticalUnits(splitted),
-        horizontalUnits: 2 * splitted.length + 1,
-      });
+      this.setState(
+        {
+          inputValidityText: "",
+          entries: splitted,
+          entryCount: splitted.length,
+          verticalUnits: this.getVerticalUnits(splitted),
+          horizontalUnits: 2 * splitted.length + 1,
+          sorting: true,
+        },
+        () => {
+          console.log("state", this.state);
+          this.sort();
+        }
+      );
     } else {
       this.setState({
         entries: [],
@@ -85,13 +93,10 @@ class App extends Component {
       });
     }
     console.log("splitted", splitted);
-    console.log("entries", this.state.entries);
   };
 
   handleBtnSortClick = (e) => {
     this.parseInput(this.state.input);
-    this.setState({ sorting: true });
-    this.sort();
   };
 
   handleSelectionChange = (e) => {
@@ -231,10 +236,10 @@ class App extends Component {
 
   sort = () => {
     const algoFunction = this.algoMap[this.state.algorithm];
-    console.log(this.state.algorithm);
+    let arr = [...this.state.entries];
     const queue = algoFunction(
       this.state.entryCount,
-      this.state.entries,
+      arr,
       this.addSwapToQueue,
       this.addSelectToQueue,
       this.addCompareToQueue,

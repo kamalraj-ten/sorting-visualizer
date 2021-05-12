@@ -6,6 +6,7 @@ import Selector from "./components/Selector";
 import BubbleSort from "./sorting_algorithms/BubbleSort";
 import Graph from "./components/Graph";
 import SelectionSort from "./sorting_algorithms/SelectionSort";
+import InsertionSort from "./sorting_algorithms/InsertionSort";
 
 class App extends Component {
   state = {
@@ -23,11 +24,16 @@ class App extends Component {
     swapI: -1,
     swapJ: -1,
     explainer: "",
+    key: NaN,
   };
 
   sortingAlgorithms = ["bubble sort", "selection sort", "insertion sort"];
 
-  algoMap = { "bubble sort": BubbleSort, "selection sort": SelectionSort };
+  algoMap = {
+    "bubble sort": BubbleSort,
+    "selection sort": SelectionSort,
+    "insertion sort": InsertionSort,
+  };
 
   HandleInputChange = (input) => {
     this.setState({ input });
@@ -111,10 +117,41 @@ class App extends Component {
     });
   };
 
+  addCompareToQueue = (queue, i, key) => {
+    queue.push({
+      type: "COMPARE",
+      i: i,
+      key: key,
+    });
+  };
+
+  // an function to copy the content from i to j
+  // used in insertion sort
+  addCopyToQueue = (queue, i, j) => {
+    queue.push({
+      type: "COPY",
+      i: i,
+      j: j,
+    });
+  };
+
+  // function to command to set content of index i to key
+  addSetToQueue = (queue, i, key) => {
+    queue.push({
+      type: "SET",
+      i: i,
+      key: key,
+    });
+  };
+
   swap = (arr, a, b) => {
     const temp = arr[a];
     arr[a] = arr[b];
     arr[b] = temp;
+  };
+
+  copy = (arr, a, b) => {
+    arr[b] = arr[a];
   };
 
   executeQueue = () => {
@@ -128,6 +165,7 @@ class App extends Component {
           swapI: -1,
           swapJ: -1,
           explainer: "",
+          key: NaN,
         }); // stop sorting
         console.log("completed sorting");
       } else {
@@ -139,18 +177,44 @@ class App extends Component {
         let i = swapI;
         let j = swapJ;
         let explainer;
+        let key = NaN;
         console.log("change", change);
         if (change.type === "SWAP") {
           // swap command
           this.swap(entries, change.i, change.j);
           i = j = -1;
           explainer = "swapping index : " + swapI + " and index : " + swapJ;
-        } else {
+        } else if (change.type === "SELECT") {
           // select and comparison
           swapI = swapJ = -1;
           explainer =
             "selecting and comparing index : " + i + " and index : " + j;
+        } else if (change.type === "COMPARE") {
+          // comparison with key
+          swapI = swapJ = -1;
+          j = -1;
+          key = change.key;
+          i = change.i;
+          explainer = "comparing index : " + i + " with the key : " + key;
+        } else if (change.type === "COPY") {
+          // copy command
+          i = j = -1;
+          swapI = change.i;
+          swapJ = change.j;
+          this.copy(entries, swapI, swapJ);
+          explainer =
+            "copying content in index : " + swapI + " with index : " + swapJ;
+        } else {
+          // set command
+          swapI = change.i;
+          i = j = -1;
+          swapJ = -1;
+          key = change.key;
+          // simply setting
+          entries[swapI] = key;
+          explainer = "set index : " + swapI + " value to " + key;
         }
+        console.log("entries", entries);
         this.setState({
           swapI,
           swapJ,
@@ -159,6 +223,7 @@ class App extends Component {
           queue,
           entries,
           explainer,
+          key,
         });
       }
     }, 1000);
@@ -171,7 +236,10 @@ class App extends Component {
       this.state.entryCount,
       this.state.entries,
       this.addSwapToQueue,
-      this.addSelectToQueue
+      this.addSelectToQueue,
+      this.addCompareToQueue,
+      this.addCopyToQueue,
+      this.addSetToQueue
     );
     console.log("queue", queue);
     this.setState({ queue }, () => {

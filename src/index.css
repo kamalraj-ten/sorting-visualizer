@@ -15,7 +15,9 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace;
 }
-
+small {
+  color: gray;
+}
 .ml-10 {
   margin-left: 10px;
 }
@@ -120,16 +122,21 @@ select:focus {
   justify-content: flex-end;
   align-items: center;
   flex-direction: column;
+  border: grey 3px solid;
 }
 .explainer {
   background-color: blueviolet;
   color: white;
   padding: 5px;
   border-radius: 4px;
+  z-index: 2;
 }
 .graph {
   display: flex;
   justify-content: space-evenly;
   flex-direction: column;
   padding: 10px;
+}
+.bar {
+  transition: 0.3s height ease-in;
 }

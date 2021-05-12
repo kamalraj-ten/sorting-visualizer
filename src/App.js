@@ -7,6 +7,7 @@ import BubbleSort from "./sorting_algorithms/BubbleSort";
 import Graph from "./components/Graph";
 import SelectionSort from "./sorting_algorithms/SelectionSort";
 import InsertionSort from "./sorting_algorithms/InsertionSort";
+import Navbar from "./components/Navbar";
 
 class App extends Component {
   state = {
@@ -259,7 +260,7 @@ class App extends Component {
   render() {
     return (
       <div className="main-container">
-        <Text class="mt-20 mb-10 logo" text="Sorting Visualizer" />
+        <Navbar />
         <div className="entry-container">
           <TextInput
             input={this.state.input}

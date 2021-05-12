@@ -7,7 +7,7 @@ const Bar = (props) => {
     backgroundColor: props.color,
     borderRadius: "4px",
   };
-  return <div style={styles}></div>;
+  return <div className="bar" style={styles}></div>;
 };
 
 export default Bar;

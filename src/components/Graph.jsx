@@ -3,9 +3,6 @@ import Bar from "./Bar";
 import Text from "./Text";
 
 const Graph = (props) => {
-  const style = {
-    height: props.verticalUnits,
-  };
   return (
     // div is 400px of height
     <div className="graph">

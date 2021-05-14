@@ -266,6 +266,7 @@ class App extends Component {
             input={this.state.input}
             inputName="input"
             onChangeHandler={this.HandleInputChange}
+            placeholder="eg. 1,2,3"
             before="["
             after="]"
             validity={this.state.inputValidityText}

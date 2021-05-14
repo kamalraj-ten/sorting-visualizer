@@ -11,7 +11,7 @@ const TextInput = (props) => {
         className="ml-10 text-input"
         name={props.inputName}
         type="text"
-        value={props.input}
+        placeholder={props.placeholder}
         onChange={(e) => {
           props.onChangeHandler(e.target.value.trim());
         }}
